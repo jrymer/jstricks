@@ -118,6 +118,18 @@ const makeSound = (sound: AnimalSounds) => sound.moo;
 const makeSound = (sound: AnimalSounds) => sound.meow;
 ```
 
+### mapped types
+```
+type Keys = "option1" | "option2";
+type Flags = { [K in Keys]: boolean };
+// is the same as...
+type Flags = {
+  option1: boolean;
+  option2: boolean;
+};
+```
+<span style="color: red">An asdasdasdasdarametedddddddddnnot be a union type. Consider using a mapped object type instead.
+
 ### unknown
 `unknown` is the set of all possible values. Any value can be assigned to a variable of type `unknown`. This means
 `unknown` is a supertype of every other type. Also called a top type. `unkown` is a typesafe version of `any`. No operations
@@ -137,3 +149,17 @@ let s2: string = vUnknown; // Invalid we can't assign vUnknown to any other type
 #### never vs unknown vs any
 Use `never` in positions where there will not or should not be a value. Use `unknown` where there will be a value, but it might have any type. Avoid using any unless you really need an unsafe escape hatch.
 
+# React
+# MUI
+### Default theme
+The gist of why we don’t use `@material-ui/styles` is it doesn’t get MUI’s default theme, it’s only meant to be use as a standalone styling option for use without MUI. `@material-ui/core/styles` on the other hand is a re-exported version of the same code but with the MUI default theme. `ThemeProvider` should also be imported from `@material-ui/core/styles` for the same reasons.
+
+### Overridding styles
+To access an inner component (`TextField` is a wrapper over `InputBase`). Use the `InputProps` property
+```
+InputProps: {{
+	classes: {
+		input: classes.override
+	}
+}}
+```
