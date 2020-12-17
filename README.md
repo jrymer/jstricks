@@ -1,5 +1,3 @@
-# jstricks
-
 # Typescript
 ## Logical operators
 ### Shorthand ternary operator `||`
