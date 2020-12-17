@@ -128,7 +128,7 @@ type Flags = {
   option2: boolean;
 };
 ```
-<span style="color: red">An asdasdasdasdarametedddddddddnnot be a union type. Consider using a mapped object type instead.
+<span style="color: red">An index signature cannot be a union type. Consider using a mapped object type instead</span>
 
 ### unknown
 `unknown` is the set of all possible values. Any value can be assigned to a variable of type `unknown`. This means
