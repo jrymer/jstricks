@@ -157,7 +157,18 @@ Use `never` in positions where there will not or should not be a value. Use `unk
 #### React.PureComponent
 Only available to classes. Implements the componentShouldUdpdate() lifecycle method to compare shallow props and state comparison from the previous render. If these match, the component will not re-render.
 #### React.memo()
-
+### children
+```
+interface Props {
+	children: React.ReactNode;
+}
+const MyComponent: React.FC<Props> = ({children}) => {} 
+```
+The above code will throw an eslint error that `children is missing in prop validation`.
+To fix this, although redundant, double type the props as follow:
+```
+const MyComponent: React.FC<Props> = ({children}: Props) => {} 
+```
 ### Selectors
 #### createSelector
 Protects componets from re rendering. Checks to see if anything changed, if nothing in the selector has changed, then do not re render. `createSelector` is a way of cahcing the result of the derived/calculated values based on state so that you don't pay the tax for re-caculating/re-allocating memory every render. If the values of the input-selectors are the same as the previous call to the selector, it will return the previously computed value instead of calling the transform function.
