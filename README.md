@@ -176,6 +176,15 @@ InputProps: {{
 }}
 ```
 
+# Docker
+### Hot reloading vs rebuilding
+If you make changes to the service code, e.g. add more logging or a `print('hello world')` statements, the service will restart/reinitialize, and tailing the logs with `docker-compose logs -f plexus` would show you that. Rebuilding all of it will do the same thing but costs more time.
+Flask apps built on pymera/flask-pymera will hot restart the app if you change any files. If you change a setting or anything docker related you’ll need to rebuild.
+
+### Commands
+* `docker-compose exec <container id> bash` ssh into a container
+
+
 # Additional notes
 * `Object.keys()` returns `string[]` if we want the keys to be of a specific type we need to do `Object.keys() as (keyof Type)[]`
 * If the error `Addess is in use` pops up
