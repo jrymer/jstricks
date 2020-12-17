@@ -129,6 +129,8 @@ type Flags = {
 };
 ```
 <span style="color: red">An index signature cannot be a union type. Consider using a mapped object type instead</span>
+[Issue](https://github.com/Microsoft/TypeScript/issues/24220)
+The fix is to convert it to a `type` instead of an `interface` and use the `in` operator
 
 ### unknown
 `unknown` is the set of all possible values. Any value can be assigned to a variable of type `unknown`. This means
@@ -150,6 +152,18 @@ let s2: string = vUnknown; // Invalid we can't assign vUnknown to any other type
 Use `never` in positions where there will not or should not be a value. Use `unknown` where there will be a value, but it might have any type. Avoid using any unless you really need an unsafe escape hatch.
 
 # React
+### Lifecycle notes
+* `React.userEffect()` is called after every render
+* `React.useMemo()` will not re evaluate during a render cycle if its dependencies have not changed
+### Selectors
+#### createSelector
+Protects componets from re rendering. Checks to see if anything changed, if nothing in the selector has changed, then do not re render. `createSelector` is a way of cahcing the result of the derived/calculated values based on state so that you don't pay the tax for re-caculating/re-allocating memory every render. If the values of the input-selectors are the same as the previous call to the selector, it will return the previously computed value instead of calling the transform function.
+#### useSelector
+A selector is a function that returns portions of state or some derived value based on state values.
+`useSelector()` is simply a hook that takes one of those functions and returns the results hooked up to your redux state.
+The selector will be run whenever the function component renders (unless its reference hasn't changed since a previous render of the component so that a cached result can be returned by the hook without re-running the selector).
+
+
 # MUI
 ### Default theme
 The gist of why we don’t use `@material-ui/styles` is it doesn’t get MUI’s default theme, it’s only meant to be use as a standalone styling option for use without MUI. `@material-ui/core/styles` on the other hand is a re-exported version of the same code but with the MUI default theme. `ThemeProvider` should also be imported from `@material-ui/core/styles` for the same reasons.
@@ -163,3 +177,14 @@ InputProps: {{
 	}
 }}
 ```
+
+# Additional notes
+* `Object.keys()` returns `string[]` if we want the keys to be of a specific type we need to do `Object.keys() as (keyof Type)[]`
+* If the error `Addess is in use` pops up
+	> `sudo lsof -i :port`
+	> `sudo kill -9 PID`
+* We upgraded to babel 7, babel 7 just compiles even if TS fails, then later we switched our linting to be eslint from TS lint and upgraded our TS to 3.8. And somewhere along that trail typing stopped getting enforced so i’d see them if i opened a file that had a typing problem but the build would be fine so we’d ignore. So i added a plugin that i added to continuum cause they had the same problem. The plugin runs typescript compiler in a different thread.
+webpack is:
+  > running babel
+  > running this plugin that runs tsc
+	
