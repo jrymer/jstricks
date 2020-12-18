@@ -94,7 +94,7 @@ Object.keys(VSMap).forEach(key => VSMap[key].map())
 ```
 This is impossible because `map()` cannot treat `number[]`, `string[]`, etc the same since they are generics.
 This is only impossible when at most one of the type in the union has multiple overloads (`string`, `number`), and at
-most one type in the union is a generic.
+most one type in the union is a generic. A way around this is to instead of having `string[] | number[]` you can have `(string | number)[]`. That way the map signature is always the same, but with `string[] | number[]` `map` has to make a choice every time
 
 
 [Docs](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html?ref=hackernoon.com)
