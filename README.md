@@ -180,6 +180,7 @@ The selector will be run whenever the function component renders (unless its ref
 
 # MUI
 ### Default theme
+[Docs](https://material-ui.com/styles/basics/#material-ui-core-styles-vs-material-ui-styles)
 The gist of why we don’t use `@material-ui/styles` is it doesn’t get MUI’s default theme, it’s only meant to be use as a standalone styling option for use without MUI. `@material-ui/core/styles` on the other hand is a re-exported version of the same code but with the MUI default theme. `ThemeProvider` should also be imported from `@material-ui/core/styles` for the same reasons.
 
 ### Overridding styles
