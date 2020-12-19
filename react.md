@@ -26,3 +26,14 @@ Protects componets from re rendering. Checks to see if anything changed, if noth
 A selector is a function that returns portions of state or some derived value based on state values.
 `useSelector()` is simply a hook that takes one of those functions and returns the results hooked up to your redux state.
 The selector will be run whenever the function component renders (unless its reference hasn't changed since a previous render of the component so that a cached result can be returned by the hook without re-running the selector).
+
+### Context API
+#### defaultValue
+```
+const CountStateContext = React.createContext()
+function CountDisplay() {
+  const {count} = React.useContext(CountStateContext)
+  return <div>{count}</div>
+}
+```
+Because we don't have a default value for our `CountStateContext`, we'll get an error on the highlighted line where we're destructing the return value of `useContext`. This is because our default value is `undefined` and you cannot destructure `undefined`.
