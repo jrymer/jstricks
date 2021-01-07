@@ -37,3 +37,5 @@ function CountDisplay() {
 }
 ```
 Because we don't have a default value for our `CountStateContext`, we'll get an error on the highlighted line where we're destructing the return value of `useContext`. This is because our default value is `undefined` and you cannot destructure `undefined`.
+
+* All consumers that are descendants of a Provider will re-render whenever the Provider’s value prop changes.
