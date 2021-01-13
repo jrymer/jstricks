@@ -39,3 +39,6 @@ function CountDisplay() {
 Because we don't have a default value for our `CountStateContext`, we'll get an error on the highlighted line where we're destructing the return value of `useContext`. This is because our default value is `undefined` and you cannot destructure `undefined`.
 
 * All consumers that are descendants of a Provider will re-render whenever the Provider’s value prop changes.
+
+### Imports
+There is a difference with certain libraries who bundle in a modern way. So `import DatePicker from 'something/DatePicker'` only includes `something/DatePicker.tsx` into your bundle, vs `import {DatePicker} from 'something'` which imports all of something. This depends a bit on your build pipeline of `something` .Tree shaking is essentially the thing that turns: `import {DatePicker} from 'something'` into just “shaking away” the code that isnt a part of DatePicker
