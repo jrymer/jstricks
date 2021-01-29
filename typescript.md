@@ -147,6 +147,11 @@ let s2: string = vUnknown; // Invalid we can't assign vUnknown to any other type
 ### never
 `never` is the empty set. There is no value that can be assigned to variable of type `never`. 
 
+
+#### never vs unknown vs any
+Use `never` in positions where there will not or should not be a value. Use `unknown` where there will be a value, but it might have any type. Avoid using any unless you really need an unsafe escape hatch.
+
+
 ## IIFE
 Immediately invoked function expressions are a way to not pollute the global space.
 ```
@@ -158,7 +163,3 @@ const fn = () => console.log('hello)
 fn()
 ```
 can be called and executed within the global scope
-
-
-#### never vs unknown vs any
-Use `never` in positions where there will not or should not be a value. Use `unknown` where there will be a value, but it might have any type. Avoid using any unless you really need an unsafe escape hatch.
