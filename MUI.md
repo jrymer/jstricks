@@ -13,3 +13,11 @@ InputProps: {{
 	}
 }}
 ```
+### Hover
+```
+const useStyles = makeStyles(() => ({
+  container:{
+    '&:hover': {
+      // hover stuff
+    },
+    ```
