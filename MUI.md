@@ -13,6 +13,17 @@ InputProps: {{
 	}
 }}
 ```
+
+#### Icon size override
+Set the font size to change the size
+```
+imageIcon: {
+    height: 200,
+    fontSize: 200,
+  },
+<BrokenImageIcon classes={{ root: classes.imageIcon }} />
+```
+
 ### Hover
 ```
 const useStyles = makeStyles(() => ({
