@@ -20,5 +20,3 @@ webpack is:
   
   > running this plugin that runs tsc
   > 
-# Service
-```bin/compose logs -t -f compose_1```
