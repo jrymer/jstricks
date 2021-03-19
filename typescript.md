@@ -131,6 +131,13 @@ type Flags = {
 [Issue](https://github.com/Microsoft/TypeScript/issues/24220)
 The fix is to convert it to a `type` instead of an `interface` and use the `in` operator
 
+### typeof operator
+Use this for using constants as types
+```
+const MyType = 'myType';
+type SomeOtherType = Record<string, typeof MyType>
+```
+
 ### unknown
 `unknown` is the set of all possible values. Any value can be assigned to a variable of type `unknown`. This means
 `unknown` is a supertype of every other type. Also called a top type. `unkown` is a typesafe version of `any`. No operations
