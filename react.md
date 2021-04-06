@@ -42,3 +42,7 @@ Because we don't have a default value for our `CountStateContext`, we'll get an 
 
 ### Imports
 There is a difference with certain libraries who bundle in a modern way. So `import DatePicker from 'something/DatePicker'` only includes `something/DatePicker.tsx` into your bundle, vs `import {DatePicker} from 'something'` which imports all of something. This depends a bit on your build pipeline of `something` .Tree shaking is essentially the thing that turns: `import {DatePicker} from 'something'` into just “shaking away” the code that isnt a part of DatePicker
+
+### Stale Closure
+Sometimes dependencies may not be updating as you expect them to when using hooks due to misuse of either the dependency array or not leveraging the `setState()` callback
+https://dmitripavlutin.com/react-hooks-stale-closures/
