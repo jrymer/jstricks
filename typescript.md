@@ -170,3 +170,6 @@ const fn = () => console.log('hello)
 fn()
 ```
 can be called and executed within the global scope
+
+## Discriminated unions
+https://medium.com/@ahsan.ayaz/understanding-discriminated-unions-in-typescript-1ccc0e053cf5
