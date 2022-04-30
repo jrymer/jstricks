@@ -7,5 +7,5 @@
         font-size: 2.5em;
         margin: 1em: # is actually 2.5em
       }
-    ```
+      ```
 - rem  (root em) looks at the `font-size` of the html element
