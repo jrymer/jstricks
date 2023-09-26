@@ -7,6 +7,7 @@
 **Root**: No parent
 **Leaf**: No children
 **Stack**: Seqential data structure where you can only add or remove from the top
+**Queue**: Things enter back and leave the front
 
 // a
 // / \
@@ -16,7 +17,7 @@
 
 ## Depth first traversal
 
-Time: O(n): We only visit each node once
+Time: O(n): Enter and leave stack once
 Space: O(n): The biggest our `stack` can be is `n`
 
 Must go deeper into the tree before we move laterally.
@@ -62,3 +63,22 @@ Since we saw `b` has chilren, we move it to `values` and pick a new node from th
 3. `values`: [a,b,d]
 
 We repeat the above until we end with `values` being a depth first traversal of `[a,b,d,e,c,f]`
+
+## Breadth first traversal
+
+Time: O(n): Enter and leave queue once
+Space: O(n): The biggest our `queue` can be is `n`
+
+Must go laterally into the tree before we move deeper.
+a,b,c,d,e,f
+
+No recursive solution. Under the hood recursion uses a stack.
+
+## Tree includes
+
+Time: O(n): We only visit each node once
+Space: O(n): The biggest our `queue` can be is `n`
+
+Given a tree and a value to look for, does it exist in the tree.
+
+In most cases, you get just the root node, and the value to look for. Can use either breadth first or depth first approaches.

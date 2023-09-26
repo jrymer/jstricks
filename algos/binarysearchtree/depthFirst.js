@@ -1,29 +1,5 @@
-class Node {
-  constructor(val) {
-    this.val = val;
-    this.left = null;
-    this.right = null;
-  }
-}
+const Node = require("./Node");
 
-const a = new Node("a");
-const b = new Node("b");
-const c = new Node("c");
-const d = new Node("d");
-const e = new Node("e");
-const f = new Node("f");
-
-a.left = b;
-a.right = c;
-b.left = d;
-b.right = e;
-c.right = f;
-
-//      a
-//    /   \
-//   b     c
-//  / \     \
-// d   e     f
 const values = [];
 const stack = [];
 
@@ -60,7 +36,7 @@ const depthFirst = (node) => {
   }
 };
 
-depthFirst(a);
+depthFirst(Node.a);
 
 // iterative approach
 const depthFirstValuesIterative = (root) => {
@@ -94,4 +70,4 @@ const depthFirstValuesRecursive = (root) => {
   return [root.val, ...left, ...right];
 };
 
-console.log(depthFirstValuesRecursive(a));
+console.log(depthFirstValuesRecursive(Node.a));
