@@ -5,15 +5,20 @@
 - Exactly one path between root node and any other node
 
 **Root**: No parent
+
 **Leaf**: No children
+
 **Stack**: Seqential data structure where you can only add or remove from the top
+
 **Queue**: Things enter back and leave the front
 
-// a
-// / \
-// b c
-// / \ \
-// d e f
+```
+   a
+  / \
+  b c
+ / \ \
+ d e f
+```
 
 ## Depth first traversal
 
