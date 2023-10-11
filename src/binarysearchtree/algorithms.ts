@@ -66,7 +66,7 @@ export const depthFirstIterativePrint = (root: BSTNode) => {
   }
 
   const stack = [root];
-  const values: string[] = [];
+  const values: (string | number)[] = [];
 
   while (stack.length > 0) {
     const current = stack.shift();
@@ -89,8 +89,8 @@ export const depthFirstIterativePrint = (root: BSTNode) => {
 export const depthFirstRecursivePrint = (root: BSTNode) => {
   if (!root) return [];
 
-  let left: string[] = [];
-  let right: string[] = [];
+  let left: (string | number)[] = [];
+  let right: (string | number)[] = [];
 
   if (root.left) {
     left = depthFirstRecursivePrint(root.left);
@@ -99,4 +99,29 @@ export const depthFirstRecursivePrint = (root: BSTNode) => {
     right = depthFirstRecursivePrint(root.right);
   }
   return [root.val, ...left, ...right];
+};
+
+export const treeSumIterative = (root: BSTNode) => {
+  if (!root) return 0;
+
+  const queue = [root];
+  let sum = 0;
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+
+    if (current) {
+      if (current.left) {
+        queue.push(current.left);
+      }
+
+      if (current?.right) {
+        queue.push(current.right);
+      }
+
+      sum += current.val as number;
+    }
+  }
+
+  return sum;
 };

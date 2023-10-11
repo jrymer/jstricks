@@ -20,7 +20,25 @@ c.right = f;
 //  / \     \
 // d   e     f
 
-export { a };
+const treeSumRoot = new BSTNode(3);
+const treeSumB = new BSTNode(11);
+const treeSumC = new BSTNode(4);
+const treeSumD = new BSTNode(2);
+const treeSumE = new BSTNode(4);
+const treeSumF = new BSTNode(1);
+
+treeSumRoot.left = treeSumB;
+treeSumRoot.right = treeSumE;
+treeSumB.left = treeSumC;
+treeSumB.right = treeSumD;
+treeSumE.right = treeSumF;
+
+//      3
+//    /   \
+//   11    4
+//  / \     \
+// 4   2     1
+// sum = 25
 
 describe("Binary Search Tree tests", () => {
   describe("Depth First", () => {
@@ -69,6 +87,11 @@ describe("Binary Search Tree tests", () => {
     });
     it("Depth First does not include", () => {
       expect(algos.recursiveDepthFirstTreeIncludes(a, "z")).toBeFalsy();
+    });
+  });
+  describe("Tree Sum", () => {
+    it("Breadth first", () => {
+      expect(algos.treeSumIterative(treeSumRoot)).toEqual(25);
     });
   });
 });
