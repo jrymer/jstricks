@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=fAAZixBzIAI&t
+
 ### Binary tree
 
 - Binary tree has **at most** two children (hence the bi)
@@ -90,4 +92,8 @@ In most cases, you get just the root node, and the value to look for. Can use ei
 
 ## Tree Sum
 
-Either breadth first or depth first. Initialize sum to 0.
+Either breadth first or depth first. Initialize sum to 0. The trick here is assuming all children that do not exist are 0. This way when looking for sum, we want the sum of the children and the current node. So for nodes with no children thats letf + right + current, or 0 + 0 + current, and we keep doing that.
+
+## Tree Min
+
+The trick is to assume the null nodes are Infinity.

@@ -20,26 +20,6 @@ c.right = f;
 //  / \     \
 // d   e     f
 
-const treeSumRoot = new BSTNode(3);
-const treeSumB = new BSTNode(11);
-const treeSumC = new BSTNode(4);
-const treeSumD = new BSTNode(2);
-const treeSumE = new BSTNode(4);
-const treeSumF = new BSTNode(1);
-
-treeSumRoot.left = treeSumB;
-treeSumRoot.right = treeSumE;
-treeSumB.left = treeSumC;
-treeSumB.right = treeSumD;
-treeSumE.right = treeSumF;
-
-//      3
-//    /   \
-//   11    4
-//  / \     \
-// 4   2     1
-// sum = 25
-
 describe("Binary Search Tree tests", () => {
   describe("Depth First", () => {
     it("Iterative Base Case", () => {
@@ -90,8 +70,59 @@ describe("Binary Search Tree tests", () => {
     });
   });
   describe("Tree Sum", () => {
+    const treeSumRoot = new BSTNode(3);
+    const treeSumB = new BSTNode(11);
+    const treeSumC = new BSTNode(4);
+    const treeSumD = new BSTNode(2);
+    const treeSumE = new BSTNode(4);
+    const treeSumF = new BSTNode(1);
+
+    treeSumRoot.left = treeSumB;
+    treeSumRoot.right = treeSumE;
+    treeSumB.left = treeSumC;
+    treeSumB.right = treeSumD;
+    treeSumE.right = treeSumF;
+
+    //      3
+    //    /   \
+    //   11    4
+    //  / \     \
+    // 4   2     1
+    // sum = 25
+
     it("Breadth first", () => {
       expect(algos.treeSumIterative(treeSumRoot)).toEqual(25);
+    });
+    it("Depth first", () => {
+      expect(algos.treeSumRecursive(treeSumRoot)).toEqual(25);
+    });
+  });
+  describe("Tree Min Value", () => {
+    const treeMinRoot = new BSTNode(5);
+    const treeMinB = new BSTNode(11);
+    const treeMinC = new BSTNode(4);
+    const treeMinD = new BSTNode(15);
+    const treeMinE = new BSTNode(3);
+    const treeMinF = new BSTNode(12);
+
+    treeMinRoot.left = treeMinB;
+    treeMinRoot.right = treeMinE;
+    treeMinB.left = treeMinC;
+    treeMinB.right = treeMinD;
+    treeMinE.right = treeMinF;
+
+    //      5
+    //    /   \
+    //   11    3
+    //  / \     \
+    // 4   15     12
+    // min = 3
+
+    it("Breadth first", () => {
+      expect(algos.treeMinIterative(treeMinRoot)).toEqual(3);
+    });
+    it("Depth first", () => {
+      expect(algos.treeMinRecursive(treeMinRoot)).toEqual(3);
     });
   });
 });

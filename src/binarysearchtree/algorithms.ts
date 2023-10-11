@@ -102,6 +102,7 @@ export const depthFirstRecursivePrint = (root: BSTNode) => {
 };
 
 export const treeSumIterative = (root: BSTNode) => {
+  // breadth first
   if (!root) return 0;
 
   const queue = [root];
@@ -124,4 +125,84 @@ export const treeSumIterative = (root: BSTNode) => {
   }
 
   return sum;
+};
+
+export const treeSumRecursive = (root?: BSTNode): number => {
+  /* depth first
+    O(n)
+    Return 0 for null nodes
+    Think about the children of our leaf nodes without children as 0s. We would
+    add left (0) + right (0) + current node to get the sum of a node and its children. Take the 4 Node for example. Its children are both null, so 0 and 0. The sum of that node and all its children are 4 + 0 + 0. Then when we bump up a level to the 11 node, it is 4 + 2 + 11
+   */
+  if (!root) return 0;
+
+  return (
+    treeSumRecursive(root.left) +
+    treeSumRecursive(root.right) +
+    (root.val as number)
+  );
+};
+
+export const treeMinIterative = (root: BSTNode): number => {
+  // The guide used a stack not a queue.
+
+  if (!root) return 0;
+
+  const queue = [root];
+  let min = root.val as number;
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+
+    if (current) {
+      const currentVal = current.val as number;
+
+      if (currentVal < min) min = currentVal;
+      if (current.left) queue.push(current.left);
+      if (current.right) queue.push(current.right);
+    }
+  }
+
+  return min;
+};
+
+export const treeMinRecursive = (root?: BSTNode): number | null => {
+  // My solution with assuming blank nodes are null. I knew it would make more sense
+  // To make the nulls Infinity but I didnt know JS had one. Now I do!
+  // if (!root) return null;
+
+  // const currentVal = root.val as number;
+  // const left = treeMinRecursive(root.left);
+  // const right = treeMinRecursive(root.right);
+  // let childrenMin = null;
+
+  // if (left && right) {
+  //   childrenMin = left < right ? left : right;
+  // } else if (left && !right) {
+  //   childrenMin = left;
+  // } else if (right && !left) {
+  //   childrenMin = right;
+  // }
+
+  // console.log({
+  //   childrenMin,
+  //   currentVal,
+  // });
+  // return childrenMin
+  //   ? childrenMin < currentVal
+  //     ? childrenMin
+  //     : currentVal
+  //   : currentVal;
+
+  /**
+   * Assume blank nodes are infinity.
+   */
+
+  if (!root) return null;
+
+  const currentVal = root.val as number;
+  const left = treeMinRecursive(root.left) || Infinity;
+  const right = treeMinRecursive(root.right) || Infinity;
+
+  return Math.min(left, right, currentVal);
 };
