@@ -1,5 +1,6 @@
 The last node points to `null`
 Or consider a list `a,b,c,d` it would be "linked" as follows `a > b > c > d > null`
+Write logic around the `current` node, dont have conditionals of like `current.next.val` just check `current.val`. Checking `current.next` too much assumes you know the length of the list.
 
 **Head**: First node in list
 **Tail**: Last node in list
