@@ -39,14 +39,33 @@ describe("Linked List tests", () => {
     a.next = b;
     b.next = c;
     c.next = d;
+
     it("Iteratively", () => {
-      expect(algos.valuesIteratively(a)).toEqual(9);
+      expect(algos.sumListIteratively(a)).toEqual(9);
     });
-    it("Recursively my version", () => {
-      expect(algos.valuesRecusrivelyMine(a)).toEqual(9);
+    it("Recursively", () => {
+      expect(algos.sumListRecursivelyMine(a)).toEqual(9);
     });
-    // it("Recursively their version", () => {
-    //   expect(algos.valuesRecusrivelyTheirs(a)).toEqual(["a", "b", "c", "d"]);
-    // });
+  });
+  describe("Linked List Find", () => {
+    it("Iteratively", () => {
+      expect(algos.findIteratively(a, "c")).toBeTruthy();
+      expect(algos.findIteratively(a, "f")).toBeFalsy();
+    });
+    it("Recursively Mine", () => {
+      expect(algos.findRecursivelyMine(a, "c")).toBeTruthy();
+      expect(algos.findRecursivelyMine(a, "f")).toBeFalsy();
+    });
+  });
+  describe("Get Node Value", () => {
+    it("Iteratively", () => {
+      expect(algos.getNodeValueIteratively(a, 2)).toEqual("c");
+    });
+    it("Recursively", () => {
+      expect(algos.getNodeValueRecursivelyMine(a, 2)).toEqual("c");
+    });
+    it("Recursively", () => {
+      expect(algos.getNodeValueRecursivelyTheirs(a, 2)).toEqual("c");
+    });
   });
 });
