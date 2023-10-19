@@ -206,3 +206,16 @@ export const treeMinRecursive = (root?: BSTNode): number | null => {
 
   return Math.min(left, right, currentVal);
 };
+
+export const MRLPS = (root?: BSTNode): number | null => {
+  /**
+   * We want to choose between the greatest number between our leaf nodes.
+   */
+  if (!root) return null;
+
+  const currentVal = root.val as number;
+  const left = MRLPS(root.left) || 0;
+  const right = MRLPS(root.right) || 0;
+
+  return Math.max(currentVal + left, currentVal + right);
+};

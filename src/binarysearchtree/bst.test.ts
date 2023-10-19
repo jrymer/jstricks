@@ -125,4 +125,48 @@ describe("Binary Search Tree tests", () => {
       expect(algos.treeMinRecursive(treeMinRoot)).toEqual(3);
     });
   });
+  describe("Max Root to Leaf Path Sum", () => {
+    const treeSumRoot = new BSTNode(3);
+    const treeSumB = new BSTNode(11);
+    const treeSumC = new BSTNode(4);
+    const treeSumD = new BSTNode(2);
+    const treeSumE = new BSTNode(4);
+    const treeSumF = new BSTNode(1);
+
+    treeSumRoot.left = treeSumB;
+    treeSumRoot.right = treeSumE;
+    treeSumB.left = treeSumC;
+    treeSumB.right = treeSumD;
+    treeSumE.right = treeSumF;
+
+    //      3
+    //    /   \
+    //   11    4
+    //  / \     \
+    // 4   2     1
+    // Max root to leave sum is 18
+
+    it("Works for a tree", () => {
+      expect(algos.MRLPS(treeSumRoot)).toEqual(18);
+    });
+    it("Works for a singular node", () => {
+      expect(algos.MRLPS(treeSumF)).toEqual(1);
+    });
+    it("Works for a negative number", () => {
+      treeSumC.right = new BSTNode(-10);
+      treeSumC.left = new BSTNode(-10);
+      treeSumF.left = new BSTNode(-19);
+      treeSumE.left = new BSTNode(-4);
+
+      //       3
+      //     /   \
+      //    11    4
+      //   / \   / \
+      //  4   2 -4 1
+      // / \       /
+      //-10-10   -19
+      // sum = 25
+      expect(algos.MRLPS(treeSumRoot)).toEqual(16);
+    });
+  });
 });
