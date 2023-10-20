@@ -183,3 +183,40 @@ export const reverseLinkedListRecursive = (
   head.next = previous;
   return reverseLinkedListRecursive(next, head);
 };
+
+export const zipperListIteratively = (head1: LLNode, head2: LLNode) => {
+  // O(min(n,m))
+  // Takes as long as the shortest list. Once the shorter list is empty, we stop and return the rest. No need to finish iterating.
+  let tail: LLNode | undefined = head1;
+  let current1: LLNode | undefined = head1?.next;
+  let current2: LLNode | undefined = head2;
+  let count = 0;
+
+  while (current1 && current2) {
+    if (tail) {
+      // we're on head1's list
+      if (count % 2 === 0) {
+        tail.next = current2;
+        current2 = current2.next;
+      } else {
+        tail.next = current1;
+        current1 = current1.next;
+      }
+
+      tail = tail.next;
+      console.log({ tail });
+    }
+    count++;
+  }
+
+  if (tail) {
+    if (current1 !== undefined) tail.next = current1;
+    if (current2 !== undefined) tail.next = current2;
+  }
+
+  return tail;
+};
+
+export const zipperListRecursively = (head: LLNode) => {
+  if (!head) return;
+};
