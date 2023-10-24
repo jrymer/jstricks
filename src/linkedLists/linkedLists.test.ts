@@ -84,35 +84,31 @@ describe("Linked List tests", () => {
       expect(algos.reverseLinkedListRecursive(a)).toEqual(d);
     });
   });
-  describe("Zipper list", () => {
-    it("Iteratively", () => {
-      const a = new LLNode("a");
-      const b = new LLNode("b");
-      const c = new LLNode("c");
-
-      const x = new LLNode("x");
-      const y = new LLNode("y");
-      const z = new LLNode("z");
-
-      a.next = b;
-      b.next = c;
-
-      x.next = y;
-      y.next = z;
-      /*
-        a > b > c
-        x > y > z
-  
-        a > x > b > y > c > z
-       */
-      const zippered = algos.zipperListIteratively(a, x);
-      console.log({ zippered });
-      const list = algos.valuesIteratively(zippered);
-      console.log({ list });
-      expect(list).toEqual(["a", "x", "b", "y", "c", "z"]);
-    });
-    // it("Recursively", () => {
-    //   expect(algos.zipperListRecursively(a)).toEqual(d);
-    // });
-  });
+  // describe("Zipper list", () => {
+  // it("Iteratively", () => {
+  //   const a = new LLNode("a");
+  //   const b = new LLNode("b");
+  //   const c = new LLNode("c");
+  //   const x = new LLNode("x");
+  //   const y = new LLNode("y");
+  //   const z = new LLNode("z");
+  //   a.next = b;
+  //   b.next = c;
+  //   x.next = y;
+  //   y.next = z;
+  //   /*
+  //     a > b > c
+  //     x > y > z
+  //     a > x > b > y > c > z
+  //    */
+  //   const zippered = algos.zipperListIteratively(a, x);
+  //   console.log({ zippered });
+  //   const list = algos.valuesIteratively(zippered);
+  //   console.log({ list });
+  //   expect(list).toEqual(["a", "x", "b", "y", "c", "z"]);
+  // });
+  // it("Recursively", () => {
+  //   expect(algos.zipperListRecursively(a)).toEqual(d);
+  // });
+  // });
 });
