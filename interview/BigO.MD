@@ -1,4 +1,19 @@
 ### Big O
+Notation to describe the performance of algorithms scales to input size
+
+- Drop constant factors:
+   `O(4n)` is simplified to just `O(n)`
+- Drop smaller terms
+   `O(n^2 + n)` is simplified to just `O(n^2)`
+
+**Worst**
+Factorial: n!
+Exponential: c^n
+Polynomial: n^c
+Linear: n
+Logirithmic: log(n)
+Contant: 1 (doesn't scale with input)
+**Best**
 
 ## Log N
 
