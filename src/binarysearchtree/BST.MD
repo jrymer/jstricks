@@ -14,6 +14,8 @@ https://www.youtube.com/watch?v=fAAZixBzIAI&t
 
 **Queue**: Things enter back and leave the front
 
+**Always operate on `current` as soon as it is removed from the `stack/queue`**
+
 ```
    a
   / \
@@ -32,7 +34,7 @@ a,b,d,e,c,f
 
 We will have 3 objects.
 
-1. `stack`: Order to look at nodes
+1. `stack`: Order to look at nodes (manipulate the stack with `push` and `pop`)
 2. `current`: Current node we are viewing
 3. `values`: Nodes we have already viewed
 
@@ -74,12 +76,15 @@ We repeat the above until we end with `values` being a depth first traversal of 
 ## Breadth first traversal
 
 Time: O(n): Enter and leave queue once
+   - Technically speaking all iterative breadth first traversals run in O(n^2) runtime because the JavaScript shift() methods runs in O(n). JavaScript does not have a native queue data structure that is maximally efficient.
 Space: O(n): The biggest our `queue` can be is `n`
+
+Manipulate the `queue` with `push()` and `shift()`
 
 Must go laterally into the tree before we move deeper.
 a,b,c,d,e,f
 
-No recursive solution. Under the hood recursion uses a stack.
+No recursive solution. Under the hood recursion uses a queue.
 
 ## Tree includes
 

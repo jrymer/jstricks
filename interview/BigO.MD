@@ -55,3 +55,7 @@ function (ar1, ar2) {
 ```
 
 Since we have two separate arrays, we have the length of `ar1` (`a`) times `ar2` (`b`) which is `a*b` yielding `O(ab)`
+
+- Searching an array takes linear time O(n)
+- Searching a set takes constant time O(1)
+- Searching an object or map takes constant time O(1)
