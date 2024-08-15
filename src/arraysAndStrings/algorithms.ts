@@ -118,3 +118,38 @@ export const compress = (str: string) => {
 
   return counts.join("").length > str.length ? str : counts.join("");
 };
+<<<<<<< HEAD
+=======
+
+export const mergeSorted = (
+  nums1: number[],
+  m: number,
+  nums2: number[],
+  n: number
+) => {
+  if (m === 0) {
+    return nums2;
+  } else if ((n = 0)) {
+    return nums1;
+  }
+
+  //[1,2,3,0,0,0]
+  //[2,5,6]
+  let counter = 0;
+  while (nums2.length) {
+    const num1 = nums1[counter];
+    const num2 = nums2[0];
+
+    if (num2 < num1 || num1 === 0) {
+      if (counter > 0) {
+        nums1 = [...nums1.slice(0, counter), num2, ...nums1.slice(counter)];
+        nums1.pop();
+        nums2.shift();
+      }
+    }
+    counter++;
+  }
+
+  return nums1;
+};
+>>>>>>> 3f10e8b60a0eb562eca2fe093620f14d01992431

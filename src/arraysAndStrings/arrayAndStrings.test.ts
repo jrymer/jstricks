@@ -27,4 +27,16 @@ describe("Array and string problems", () => {
     expect(algos.compress("aabcccccaaa")).toEqual("a2b1c5a3");
     expect(algos.compress("abcd")).toEqual("abcd");
   });
+<<<<<<< HEAD
+=======
+  it("Merges a sorted array", () => {
+    // https://leetcode.com/problems/merge-sorted-array/?envType=study-plan-v2&envId=top-interview-150
+
+    expect(algos.mergeSorted([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3)).toEqual([
+      1, 2, 2, 3, 5, 6,
+    ]);
+    expect(algos.mergeSorted([1], 1, [], 0)).toEqual([1]);
+    expect(algos.mergeSorted([0], 0, [1], 1)).toEqual([1]);
+  });
+>>>>>>> 3f10e8b60a0eb562eca2fe093620f14d01992431
 });
