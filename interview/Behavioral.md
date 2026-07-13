@@ -1,73 +1,87 @@
 1. Challenging Customer:
-    a. **Kaye:** 
-        **S:** My most challenging customer had a poor understanding of the modern web, and she was not very responsive to pushback on what requirements she wanted. Additionally she wanted to be very involved in the design process. 
-        **T:** I was asked to create a complicated form for gathering user data, but the client wanted to limit the types of fields I could use. For instance, no date pickers for date fields, and no autocomplete on country pickers.
-        **A:** In an effort to keep up with solid UI design principles but also keep the customer happy I found a middle ground. I  used a guided input field for the date, but also added an icon to open the date picker. I used the same approach for the country picker.
-        **R:** After discussing this solution with the client they accepted that having both would work well so power users could still navigate quickly via keyboard, but less experienced users could use the date picker.
-    b. **Trackers:**
-        **S:** The client wanted to add a new entity type to our entity relationship platform. The new entity type was fundamentally different from all the other entity types. Additionally, the client did not really know what requirements they wanted outside of vague requests.
-        **T:** I had to figure out how to architect the new entity into our existing platform given vague requirements.
-        **A:** After mocking out an initial database schema to support the new entity type it became clear that a lot more additional work was required. As the conversation with the client evolved, so did the requirements, for better and for worse. But due to forward thinking and knowledge of the existing system and how the users use the platform, I was able to guide the client towards finalizing their requirements.
-        **R:** It worked everyone loved it.
+   a. **Kaye:**
+   **S:** My most challenging customer had a poor understanding of the modern web, and she was not very responsive to pushback on what requirements she wanted. Additionally she wanted to be very involved in the design process.
+   **T:** I was asked to create a complicated form for gathering user data, but the client wanted to limit the types of fields I could use. For instance, no date pickers for date fields, and no autocomplete on country pickers.
+   **A:** In an effort to keep up with solid UI design principles but also keep the customer happy I found a middle ground. I used a guided input field for the date, but also added an icon to open the date picker. I used the same approach for the country picker.
+   **R:** After discussing this solution with the client they accepted that having both would work well so power users could still navigate quickly via keyboard, but less experienced users could use the date picker.
+   b. **Trackers:**
+   **S:** The client wanted to add a new entity type to our entity relationship platform. The new entity type was fundamentally different from all the other entity types. Additionally, the client did not really know what requirements they wanted outside of vague requests.
+   **T:** I had to figure out how to architect the new entity into our existing platform given vague requirements.
+   **A:** After mocking out an initial database schema to support the new entity type it became clear that a lot more additional work was required. As the conversation with the client evolved, so did the requirements, for better and for worse. But due to forward thinking and knowledge of the existing system and how the users use the platform, I was able to guide the client towards finalizing their requirements.
+   **R:** It worked everyone loved it.
 2. Challenging Technical Problems:
-    a. **Arrows on the ends of lines:**  
-        **S:** We had a visualization tool with nodes and edges. For our first pass, the edges just went from node to node with little styling, but the client later wanted arrows pointing to the nodes instead of lines.
-        **T:** The problem was to figure out how to add arrows to the lines. I originally thought this would be an easy task but soon discovered it would not. The tool we used for drawing the nodes and line, D3js, draws lines to the center of the nodes by default. Because the lines are drawn to the center, the ends of the lines are positioned unerneath each node. And because the ends of the lines are underneath the nodes, you cannot see the line tips once the arrows are added.
-        **A:** To combat this, I found a geometric formula to find where the lines cross under the node, and then back them off the node until they are visible. The forumla calculated the intersection point between the line and the border of the node. Once the intersection point was found, I could then use the direction of the node (like source or target or to and from) to determine which direction the arrow should be pointing.
-        **R:** After implementing the geometric formula and doing a bit of math, I was successfully able to display the arrows on the end of lines.
-    b. **Forking the Clustergrammer Library:**
-        **S:** The client wanted an advanced visualization tool. The tool I found required data
-        **T:**
-        **A:**
-        **R:**
-    c. **Query builder:**
-        **S:** A third party contractor had developed a tool to ingest data from our db and build advanced queries to make additional searches with. The client wanted this tool integrated into the application as a feature, not a standalone tool like the 3rd party dev had developed.
-        **T:** I was given charge of the effort to integrate this query builder into our main app. But the code was obtuse, there were no comments, it was written in javascript without typings or prop types and our platform was in typescript.
-        **A:** I reached out to the 3rd party dev to see if they had a requirements document I could review to determine what criteria were expected from the query builder. Luckily he still had it, otherwise I would have just asked the client for a new one. It was a lot of obnoxious work but eventually I got the app ported into our platform, and ran thourough tests against both to ensure both worked the same.
-        **R:** The client was satisfied, but later deprecated the feature.
-    d. **ORCON issue:**
-        **S:** I worked on a classified platform. There was a platform wide classification tool that was used to determine which users could see which documents based on their credentials. This classification tool had been deployed for over a year with minimal problems. A user found a bug resulting in an incorrect classification of an extremely nice combination of classification types.
-        **T:** Because the result of this bug was users seeing information they are not classified to see, fixing it as soon as possible was of utmost importance.
-        **A:** As the maintainer of the library I was tasked with fixing it. I gathered as much information about the bug from the user's who discovered the bug and other classification SMEs to fully understand the proper classifications and the exact combination that was breaking. The bug was a that the logic for protecting this specific use case was implemented incorrectly. After fixing it it worked.
-        **R:** I fixed the bug and everyone was happy.
+   a. **Structuring the Permissions configuration:**
+   **S:** We were building a permissions application for admin users as a SaaS product, therefore, we needed a flexible configuration to render the UI and hold the data with. Overall, the data was consistent, but there were enough one-off edge cases we needed to fullfill that it got fairly complex. The UI needed to read this configuration, and build forms and components depending on the structure.
+   **T:** I was to design the configuration and build the UI around it.
+   **A:** Originally I intended to use the Context API for the form state on submission, but as the complexity grew Context quickly became the wrong decision. I switched to using React Form Hook instead, and heavily leaned on their `useFormContext` to avoid prop drilling because the UI was a deeply nested structure.
+   **R:** The result was a highly configurable UI form builder driven by a configuration template that was simple to adjust based on which fields a user needed.
+   b. **Arrows on the ends of lines:**  
+    **S:** We had a visualization tool with nodes and edges. For our first pass, the edges just went from node to node with little styling, but the client later wanted arrows pointing to the nodes instead of lines.
+   **T:** The problem was to figure out how to add arrows to the lines. I originally thought this would be an easy task but soon discovered it would not. The tool we used for drawing the nodes and line, D3js, draws lines to the center of the nodes by default. Because the lines are drawn to the center, the ends of the lines are positioned unerneath each node. And because the ends of the lines are underneath the nodes, you cannot see the line tips once the arrows are added.
+   **A:** To combat this, I found a geometric formula to find where the lines cross under the node, and then back them off the node until they are visible. The forumla calculated the intersection point between the line and the border of the node. Once the intersection point was found, I could then use the direction of the node (like source or target or to and from) to determine which direction the arrow should be pointing.
+   **R:** After implementing the geometric formula and doing a bit of math, I was successfully able to display the arrows on the end of lines.
+   c. **Forking the Clustergrammer Library:**
+   **S:** The client wanted an advanced visualization tool. The tool I found required data
+   **T:**
+   **A:**
+   **R:**
+   d. **Query builder:**
+   **S:** A third party contractor had developed a tool to ingest data from our db and build advanced queries to make additional searches with. The client wanted this tool integrated into the application as a feature, not a standalone tool like the 3rd party dev had developed.
+   **T:** I was given charge of the effort to integrate this query builder into our main app. But the code was obtuse, there were no comments, it was written in javascript without typings or prop types and our platform was in typescript.
+   **A:** I reached out to the 3rd party dev to see if they had a requirements document I could review to determine what criteria were expected from the query builder. Luckily he still had it, otherwise I would have just asked the client for a new one. It was a lot of obnoxious work but eventually I got the app ported into our platform, and ran thourough tests against both to ensure both worked the same.
+   **R:** The client was satisfied, but later deprecated the feature.
+   e. **ORCON issue:**
+   **S:** I worked on a classified platform. There was a platform wide classification tool that was used to determine which users could see which documents based on their credentials. This classification tool had been deployed for over a year with minimal problems. A user found a bug resulting in an incorrect classification of an extremely nice combination of classification types.
+   **T:** Because the result of this bug was users seeing information they are not classified to see, fixing it as soon as possible was of utmost importance.
+   **A:** As the maintainer of the library I was tasked with fixing it. I gathered as much information about the bug from the user's who discovered the bug and other classification SMEs to fully understand the proper classifications and the exact combination that was breaking. The bug was a that the logic for protecting this specific use case was implemented incorrectly. After fixing it it worked.
+   **R:** I fixed the bug and everyone was happy.
 
 3. Deadline
-    a. **Graphs Deployment Alongside Home:**
-        **S:** There were two new greenlit applications for the same client. One was app A the other app B. App A had begun development about 2 months ago and was just a new frontend ontop of an existing backend. I was the lead for App B which needed a new frontend as well as a new backend. The client, for no reasons other than being excited, expected them to both be deployed to production on the same day.
-        **T:** Even though App A had a 2 month head start and had less infrastructure, the client still expected App B to be deployed along side it.
-        **A:** I let the product manager and client know that deploying two new applications to the same environment on the same day was not the best idea becuase if the server faced issues they would be harder to debug if two new apps had been deployed. Additionally, I communicated that becuase the apps did not rely on each other, and App B required more infrastructure, it might not be possible to have App B ready for deployment on such short notice.
-        **R:** We did end up missing the deadline. After repeated status checks with the client, and full transparency about the velocity and progress of the team they were understand. After we deployed, our MVP included additional work as a bonus and the client was pleased.
+   a. **Permissions:**
+   **S:** I was moved to a new team to help them meet a tight deadline. The app they needed was still in the concept phase, no documentation, no designs, no repos no nothing, but the deadline was tight.
+   **T:** I was in charge of the UI.
+   **A:** I made a few calls early. First, I prototyped against my best guess at requirements instead of waiting on designs. Second, I invested time in infrastructure — theme, data fetching, test setup — that would pay off once real work started. Third, I proposed scoping the first release to just the one launch client, and pushed the multi-client generalization to post-MVP. Finally, since I was consistently ahead of the API in development, I didn't wait on the API team when I hit bugs that were blocking the UI — I fixed them myself rather than lose time waiting for someone else to get to them.
+   **R:** Despite starting with no docs or designs, the UI reached 100% feature parity with the final designs well ahead of the original deadline — every screen and component was built and functional. Anywhere an API endpoint existed, I wired it in directly; anywhere it wasn't ready yet, I kept that section running on mocked data so the UI stayed fully demoable and testable. Since I was consistently ahead of the API team's progress, I was swapping mocks for live connections throughout the project rather than waiting until the end to integrate. By the time I rolled off, the UI was essentially finished, which let the team shift its remaining focus onto the API work — the actual bottleneck by that point.
+   b. **Graphs Deployment Alongside Home:**
+   **S:** There were two new greenlit applications for the same client. One was app A the other app B. App A had begun development about 2 months ago and was just a new frontend ontop of an existing backend. I was the lead for App B which needed a new frontend as well as a new backend. The client, for no reasons other than being excited, expected them to both be deployed to production on the same day.
+   **T:** Even though App A had a 2 month head start and had less infrastructure, the client still expected App B to be deployed along side it.
+   **A:** I let the product manager and client know that deploying two new applications to the same environment on the same day was not the best idea becuase if the server faced issues they would be harder to debug if two new apps had been deployed. Additionally, I communicated that becuase the apps did not rely on each other, and App B required more infrastructure, it might not be possible to have App B ready for deployment on such short notice.
+   **R:** We did end up missing the deadline. After repeated status checks with the client, and full transparency about the velocity and progress of the team they were understand. After we deployed, our MVP included additional work as a bonus and the client was pleased.
 4. Coworker issues
-    a. **Courtney taking down dev:**
-        **S:** I was working a team where the frontend developers used a VPN to connect to a backend hosted in AWS. The backend developers ran their code natively on their laptops. The backend was not dockerized, so the only way to run the backend locally was to build and run the entire server. This caused problems because anytime the DevOps team needed to bring down the dev environment, the frontend team lost connection and could not work. 
-        **T:** After discussing with both the backend and dev ops team if they would be open to dockerizing the backend they both said no they did not want to take on the effort of doing so. The local setup for the backend was also very obtuse and finicky and they did not want to take the time to get a whole new team setup on the backend.
-        **A:** Because neither the backend nor devops team was offering assistance to the frontend developers, I took it upon myself to dockerize the backend so the frontend team could use it for local dev.
-        **R:** The frontend team used the dockerized env for local dev. But it cost me a bit of time and hurt my velocity on the frontend.
-    b. **Manan:**
-        **S:** I was team lead on a project with an IC who had extremely low velocity. He goofed off most of the day, and ended up offloading a l of his work by the end of the sprint because he would not finish. This hurt the team's velocity.
-        **T:** Because I was serving as scrum master on this team I had to figure out how to breach this topic with the individual.
-        **A:** For the next two sprints I tracked each member's velocity, their projected workload during sprint planning, and their actual workload after a sprint ended. I had a conversation with the individual about what we can do to assist him. He felt as though a lot of his tickets were too difficult and that was why he couldn't finish most of them. During the next sprint planning, I asked a different junior dev if they wanted harder tasks to which he said yes, so even though the problematic developer was a mid level dev, he was assigned most of the junior level tasks, while the junior dev was assigned a small hand full of mid level tasks. Additionally, the team on a little bit less workload this sprint in the event that either of their leftover tickets needed to be picked up.
-        **R:** The IC remained a poor performer.
+   a. **Courtney taking down dev:**
+   **S:** I was working a team where the frontend developers used a VPN to connect to a backend hosted in AWS. The backend developers ran their code natively on their laptops. The backend was not dockerized, so the only way to run the backend locally was to build and run the entire server. This caused problems because anytime the DevOps team needed to bring down the dev environment, the frontend team lost connection and could not work.
+   **T:** After discussing with both the backend and dev ops team if they would be open to dockerizing the backend they both said no they did not want to take on the effort of doing so. The local setup for the backend was also very obtuse and finicky and they did not want to take the time to get a whole new team setup on the backend.
+   **A:** Because neither the backend nor devops team was offering assistance to the frontend developers, I took it upon myself to dockerize the backend so the frontend team could use it for local dev.
+   **R:** The frontend team used the dockerized env for local dev. But it cost me a bit of time and hurt my velocity on the frontend.
+   b. **Manan:**
+   **S:** I was team lead on a project with an IC who had extremely low velocity. He goofed off most of the day, and ended up offloading a l of his work by the end of the sprint because he would not finish. This hurt the team's velocity.
+   **T:** Because I was serving as scrum master on this team I had to figure out how to breach this topic with the individual.
+   **A:** For the next two sprints I tracked each member's velocity, their projected workload during sprint planning, and their actual workload after a sprint ended. I had a conversation with the individual about what we can do to assist him. He felt as though a lot of his tickets were too difficult and that was why he couldn't finish most of them. During the next sprint planning, I asked a different junior dev if they wanted harder tasks to which he said yes, so even though the problematic developer was a mid level dev, he was assigned most of the junior level tasks, while the junior dev was assigned a small hand full of mid level tasks. Additionally, the team on a little bit less workload this sprint in the event that either of their leftover tickets needed to be picked up.
+   **R:** The IC remained a poor performer.
+   c. **Douglas:**
+   **S:** I was on a two-person team building a new API from scratch. My counterpart was highly opinionated and became defensive when his ideas were challenged, which showed up in two ways: he'd block my PRs over very minor things — a comment's wording, a variable name — while his own PRs for small fixes often included large, unrelated refactors (directory restructures, mid-project library upgrades) that made real review difficult.
+   **T:** As co-owner of the API, I needed us to actually ship something stable together, which meant fixing how we worked, not just what we built.
+   **A:** I first tried resolving it directly — a few 1:1 conversations about keeping PRs scoped to their ticket and being intentional about introducing new tools or major version bumps mid-project. That got pushback and didn't change behavior. Rather than keep having the same argument repeatedly, I raised it once with our manager — not as "who's right," but as "we need an agreed process for scope and tech decisions, because right now we don't have one." The manager backed a simple standard: PRs stay scoped to their ticket, and any tooling/library change gets proposed and discussed before it shows up in a PR. With that reference point in place, I also changed how I gave feedback — being specific and written on PRs instead of vague pushback, and framing technology disagreements as tradeoff discussions ("here's the risk if we do this now") instead of just disagreeing outright.
+   **R:** PR review turnaround improved significantly since we were no longer relitigating scope on every review, and once we had a shared standard, most of the earlier friction just stopped resurfacing. We shipped the API on time, and the scoped-PR norm we set up stuck around as how the team operated well after that project. It also changed how I approach disagreements with strong-willed peers generally — get a shared standard in place early, rather than relying on personal debate to resolve the same argument over and over.
 
+5. Describe a time you went above and beyond for work.
+   Have you ever taken it upon yourself to exceed a target at work? This is your opportunity to show a prospective employer that you’re striving for excellence instead of just doing what’s expected of you. Choose a project where you can discuss why you decided to go above and beyond, how you did it, and what the results were.
 
-1. Describe a time you went above and beyond for work.
-Have you ever taken it upon yourself to exceed a target at work? This is your opportunity to show a prospective employer that you’re striving for excellence instead of just doing what’s expected of you. Choose a project where you can discuss why you decided to go above and beyond, how you did it, and what the results were.
-
-2. Describe a time you had to resolve a difficult situation or conflict on the job.
-Questions about complaints and disagreements you’ve had in previous roles can reveal a lot about how you interact with others, solve problems and perform under pressure.
+6. Describe a time you had to resolve a difficult situation or conflict on the job.
+   Questions about complaints and disagreements you’ve had in previous roles can reveal a lot about how you interact with others, solve problems and perform under pressure.
 
 The key is to focus on the “resolve” part of the question. Talk about a time you experienced a conflict or other difficult situation and fixed it. Don’t forget to mention how you grew from the incident.
 
 3. Describe a time you took a leadership role.
-If you’re already in a managerial role, think of an example relevant to the new job and talk about a time your leadership made a difference in inspiring or motivating others.
+   If you’re already in a managerial role, think of an example relevant to the new job and talk about a time your leadership made a difference in inspiring or motivating others.
 
 If you haven’t made it to a leadership role yet, you can still answer the question. Perhaps you managed a project, mentored a new hire or organized an event. Even something you did during school could show you have the potential and skills to be a great leader.
 
 4. Describe a time you made a mistake. How did you handle it?
-This one is similar to the question about conflicts on the job. It can reveal how you’ve handled a challenging situation and that you can learn from your mistake and take accountability for it. Choose a minor mistake and discuss how you took responsibility, fixed it and adjusted to prevent similar mistakes.
+   This one is similar to the question about conflicts on the job. It can reveal how you’ve handled a challenging situation and that you can learn from your mistake and take accountability for it. Choose a minor mistake and discuss how you took responsibility, fixed it and adjusted to prevent similar mistakes.
 
 5. Describe a time you set a goal for yourself and followed through.
-Initiative, ambition and tenacity are the qualities you want to show here. Pick a goal you personally set and build a story around it: why it was important to you, the timeline involved, challenges along the way and the result you had. If possible, mention skills or abilities relevant to the job description. 
+   Initiative, ambition and tenacity are the qualities you want to show here. Pick a goal you personally set and build a story around it: why it was important to you, the timeline involved, challenges along the way and the result you had. If possible, mention skills or abilities relevant to the job description.
 
 6. What’s your proudest achievement?
-What really matters to you? This question can reveal a lot about your work ethic and core values. Choose an accomplishment that you feel genuinely proud of, and your passion and enthusiasm should shine through. If you can work in some of the qualities and skills the interviewer is looking for, even better.
+   What really matters to you? This question can reveal a lot about your work ethic and core values. Choose an accomplishment that you feel genuinely proud of, and your passion and enthusiasm should shine through. If you can work in some of the qualities and skills the interviewer is looking for, even better.
