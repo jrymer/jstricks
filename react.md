@@ -17,6 +17,122 @@ onClick={() => {
 
 - `useDeferredValue`lets you defer updating a part of the UI.
 - `difference between useTransition and useDeferredValue` Use `useTransition` when you have direct access to the state updater function and want to keep the UI responsive. Use `useDeferredValue` when you don't control the state update (e.g., the value comes from a parent component as a prop or a third-party library).
+
+**`useTransition` — you own the state update:**
+```tsx
+function SearchPage() {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [isPending, startTransition] = useTransition();
+
+  const handleChange = (e) => {
+    // Urgent: update the input immediately
+    setQuery(e.target.value);
+
+    // Non-urgent: defer the expensive results update
+    startTransition(() => {
+      setResults(expensiveSearch(e.target.value));
+    });
+  };
+
+  return (
+    <>
+      <input value={query} onChange={handleChange} />
+      {isPending ? <Spinner /> : <ResultsList results={results} />}
+    </>
+  );
+}
+```
+
+**`useDeferredValue` — the value comes from outside (prop or library):**
+```tsx
+// Parent owns the state — you can't wrap its setter in startTransition
+function SearchResults({ query }: { query: string }) {
+  const deferredQuery = useDeferredValue(query);
+
+  // true while deferredQuery is still the OLD value and React is re-rendering
+  // ExpensiveList in the background with the new one.
+  // Once the background render commits, deferredQuery catches up to query
+  // and isStale flips back to false — no explicit loading state needed.
+  const isStale = query !== deferredQuery;
+
+  // There is NO spinner here. The old list stays visible but dimmed while
+  // React works on the new render in the background (low priority, interruptible).
+  // If the user types again before it finishes, React throws away the
+  // in-progress render and starts over with the latest value.
+  // Wrap ExpensiveList in <Suspense> if you want a fallback during the transition.
+  return (
+    <div style={{ opacity: isStale ? 0.5 : 1 }}>
+      <ExpensiveList query={deferredQuery} />
+    </div>
+  );
+}
+
+function App() {
+  const [query, setQuery] = useState('');
+  return (
+    <>
+      <input value={query} onChange={e => setQuery(e.target.value)} />
+      <SearchResults query={query} />
+    </>
+  );
+}
+```
+**`useTransition` + Suspense — keep showing old content while async data loads:**
+```tsx
+// Without useTransition: clicking a tab immediately unmounts the current tab
+// and shows the Suspense fallback (<Spinner />) while the new tab's data loads.
+// With useTransition: React keeps the current tab visible until the new one
+// is fully ready, then swaps atomically. isPending lets you show a subtle indicator.
+function TabContainer() {
+  const [tab, setTab] = useState<'home' | 'profile'>('home');
+  const [isPending, startTransition] = useTransition();
+
+  return (
+    <>
+      <nav style={{ opacity: isPending ? 0.6 : 1 }}>
+        {/* isPending dims the nav so the user knows something is happening,
+            but the current tab content stays visible — no jarring spinner */}
+        <button onClick={() => startTransition(() => setTab('home'))}>Home</button>
+        <button onClick={() => startTransition(() => setTab('profile'))}>Profile</button>
+      </nav>
+
+      {/* Suspense fallback only shows on the very first load of a tab,
+          or if React cannot keep the old content (e.g., the tab unmounts).
+          During a transition, React suppresses this fallback and shows
+          the previous content until the new render is ready. */}
+      <Suspense fallback={<Spinner />}>
+        {tab === 'home' ? <HomeTab /> : <ProfileTab />}
+      </Suspense>
+    </>
+  );
+}
+```
+
+**`useDeferredValue` + Suspense — show old results until new ones are ready:**
+```tsx
+function SearchResults({ query }: { query: string }) {
+  const deferredQuery = useDeferredValue(query);
+  const isStale = query !== deferredQuery;
+
+  return (
+    // Suspense provides the fallback for the very first render (no previous
+    // results to show yet). On subsequent searches, React keeps showing the
+    // previous <ExpensiveList> result (dimmed) instead of the fallback while
+    // deferredQuery catches up — same "suppress fallback during transition" behaviour.
+    <Suspense fallback={<Spinner />}>
+      <div style={{ opacity: isStale ? 0.5 : 1 }}>
+        {/* ExpensiveList suspends while fetching — React uses deferredQuery
+            so it re-fetches with the old value first, buying time.
+            The moment deferredQuery updates, a new suspended render starts
+            in the background. Old content stays until it resolves. */}
+        <ExpensiveList query={deferredQuery} />
+      </div>
+    </Suspense>
+  );
+}
+```
+
 - `use` lets you read the value of a Promise or context. Despite its name, use is not a Hook. Unlike Hooks, it can be called inside loops and conditional statements like if. If the component that calls use is wrapped in a Suspense boundary, the fallback will be displayed while the Promise is pending.
 
 ### Memoization
